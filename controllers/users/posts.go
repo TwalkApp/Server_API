@@ -17,9 +17,9 @@ func GetUserPosts(id string, pagination misc.Pagination) ([]posts.Post, error) {
 		result	[]posts.Post
 	)
 	result = make([]posts.Post, 0)
-	query := "SELECT id, title, description FROM posts WHERE user_id = ? "
+	query := "SELECT id, title, description FROM posts WHERE user_id = ?"
 	if pagination.IsSet() {
-		query += "LIMIT " + strconv.Itoa(pagination.GetFrom()) + "," + strconv.Itoa(pagination.Size)
+		query += " LIMIT " + strconv.Itoa(pagination.GetFrom()) + "," + strconv.Itoa(pagination.Size)
 	}
 	rows, err := mysql.DB.Query(query + ";", id)
 	for rows.Next() {

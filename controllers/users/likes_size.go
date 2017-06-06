@@ -8,9 +8,9 @@ import (
 	"github.com/twalkapp/server/storage/mysql"
 )
 
-func GetUserPostsCount(id string) (int, error) {
+func GetUserLikesCount(id string) (int, error) {
 	var result	int
-	row := mysql.DB.QueryRow("SELECT COUNT(id) FROM posts WHERE user_id = ?;", id)
+	row := mysql.DB.QueryRow("SELECT COUNT(post_id) FROM favourites WHERE user_id = ?;", id)
 	err := row.Scan(&result)
 	if err != nil {
 		fmt.Print(err.Error())

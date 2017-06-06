@@ -11,12 +11,12 @@ import (
 
 func GetCommentsCount(depth int, limitDepth int) (int, error) {
 	var result	int
-	query := "SELECT COUNT(id) FROM comments "
+	query := "SELECT COUNT(id) FROM comments"
 
 	if depth != -1 {
-		query += "WHERE depth = " + strconv.Itoa(depth)
+		query += " WHERE depth = " + strconv.Itoa(depth)
 	} else if limitDepth != -1 {
-		query += "WHERE depth BETWEEN 0 AND " + strconv.Itoa(limitDepth)
+		query += " WHERE depth BETWEEN 0 AND " + strconv.Itoa(limitDepth)
 	}
 
 	row := mysql.DB.QueryRow(query + ";")

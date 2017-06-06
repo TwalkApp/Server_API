@@ -18,15 +18,15 @@ func GetAllComments(depth int, limitDepth int, pagination misc.Pagination) ([]co
 	)
 	result = make([]comments.Comment, 0)
 
-	query := "SELECT id, user_id, post_id, COALESCE(parent_id, 0), depth, value FROM comments "
+	query := "SELECT id, user_id, post_id, COALESCE(parent_id, 0), depth, value FROM comments"
 
 	if depth != -1 {
-		query += "WHERE depth = " + strconv.Itoa(depth)
+		query += " WHERE depth = " + strconv.Itoa(depth)
 	} else if limitDepth != -1 {
-		query += "WHERE depth BETWEEN 0 AND " + strconv.Itoa(limitDepth)
+		query += " WHERE depth BETWEEN 0 AND " + strconv.Itoa(limitDepth)
 	}
 	if pagination.IsSet() {
-		query += "LIMIT " + strconv.Itoa(pagination.GetFrom()) + "," + strconv.Itoa(pagination.Size)
+		query += " LIMIT " + strconv.Itoa(pagination.GetFrom()) + "," + strconv.Itoa(pagination.Size)
 	}
 
 	rows, err := mysql.DB.Query(query + ";")
