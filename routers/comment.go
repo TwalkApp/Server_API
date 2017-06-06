@@ -27,7 +27,7 @@ func SetCommentRoutes(routerGroup *gin.RouterGroup ) {
 	})
 
 	routerGroup.PUT("", func(c *gin.Context) {
-		log.Info("PUT /users/" + c.Param("pid") + "/comments/" + c.Param("cid"))
+		log.Info("PUT /posts/" + c.Param("pid") + "/comments/" + c.Param("cid"))
 		var comment comments.Comment
 		if c.BindJSON(&comment) == nil {
 			_, err := Controller.UpdateComment(comment)
@@ -49,9 +49,9 @@ func SetCommentRoutes(routerGroup *gin.RouterGroup ) {
 	})
 
 	routerGroup.DELETE("", func(c *gin.Context) {
-		id := c.Param("id")
-		log.Info("DELETE /users/" + id)
-		_, err := Controller.DeleteComment(id)
+		cid := c.Param("cid")
+		log.Info("PUT /posts/" + c.Param("pid") + "/comments/" + cid)
+		_, err := Controller.DeleteComment(cid)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"message": "Error while deletion",
@@ -59,7 +59,7 @@ func SetCommentRoutes(routerGroup *gin.RouterGroup ) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"message": fmt.Sprintf("Successfully deleted user %s", id),
+			"message": fmt.Sprintf("Successfully deleted comment %s", cid),
 		})
 	})
 
